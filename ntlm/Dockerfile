@@ -1,6 +1,8 @@
-FROM alpine:3.13 AS builder
+FROM alpine:3.17 AS builder
+# FROM alpine:3.13 AS builder
 
 ARG NGINX_VERSION=1.19.3
+# ARG NGINX_VERSION=1.23.3
 
 # install buidl tools
 RUN set -x \
@@ -81,7 +83,7 @@ FROM nginx:1.19.3-alpine
 
 COPY --from=builder /build/nginx-${NGINX_VERSION}/objs/ngx_http_upstream_ntlm_module.so /etc/nginx/modules/ngx_http_upstream_ntlm_module.so
 
-EXPOSE 8000
+EXPOSE 8000 8443
 
 STOPSIGNAL SIGQUIT
 
