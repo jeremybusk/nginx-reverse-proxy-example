@@ -1,8 +1,6 @@
 FROM alpine:3.17 AS builder
-# FROM alpine:3.13 AS builder
 
-ARG NGINX_VERSION=1.19.3
-# ARG NGINX_VERSION=1.23.3
+ARG NGINX_VERSION=1.23.2
 
 # install buidl tools
 RUN set -x \
@@ -79,7 +77,7 @@ RUN cd nginx-${NGINX_VERSION}/ \
         --add-dynamic-module=../nginx-ntlm-module \
     && make modules
 
-FROM nginx:1.19.3-alpine
+FROM nginx:1.23.2-alpine
 
 COPY --from=builder /build/nginx-${NGINX_VERSION}/objs/ngx_http_upstream_ntlm_module.so /etc/nginx/modules/ngx_http_upstream_ntlm_module.so
 
